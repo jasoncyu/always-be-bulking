@@ -7,6 +7,7 @@
 
 // Needed for redux-saga es6 generator support
 import 'babel-polyfill';
+import firebase from 'firebase';
 
 // Load the favicon, the manifest.json file and the .htaccess file
 import 'file?name=[name].[ext]!./favicon.ico';
@@ -57,6 +58,41 @@ const rootRoute = {
   component: App,
   childRoutes: createRoutes(store),
 };
+
+
+// Initialize Firebase
+const config = {
+  apiKey: 'AIzaSyBWPSHXhXpV7_Rg99GsIvCwjzCFo_Xkizg',
+  authDomain: 'always-be-bulking.firebaseapp.com',
+  databaseURL: 'https://always-be-bulking.firebaseio.com',
+  storageBucket: 'always-be-bulking.appspot.com',
+};
+firebase.initializeApp(config);
+
+const currentUser = firebase.auth().currentUser
+if (!currentUser) {
+  firebase
+    .auth()
+    .signInWithEmailAndPassword('yujason2@gmail.com', 'asdfasdf')
+    .then(() => {
+      console.log('firebase.auth().currentUser: ', firebase.auth().currentUser.email)
+      const myUserID = 'zl2jhz5tUjSGWbDYmscYE7f6tJl2'
+      const db = firebase.database()
+      const setGroup = {
+        startTS: +new Date(),
+        0: {
+          weight: 200, reps: 10, lift: 'bench_press',
+        },
+        1: {
+          weight: 200, reps: 8, lift: 'bench_press',
+        },
+      }
+      db.ref(`users/${myUserID}/setGroups`).set(setGroup)
+    })
+    .catch((err) => {
+      console.log('err: ', err)
+    })
+}
 
 ReactDOM.render(
   <Provider store={store}>
