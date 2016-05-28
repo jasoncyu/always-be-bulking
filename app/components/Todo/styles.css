@@ -1,0 +1,8 @@
+.todo {
+
+}
+
+.done {
+  composes: todo;
+  text-decoration: line-through;
+}
