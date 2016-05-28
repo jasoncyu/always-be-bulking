@@ -54,7 +54,28 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
+      path: '/todos',
+      name: 'todoList',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/TodoList/reducer'),
+          System.import('containers/TodoList/sagas'),
+          System.import('containers/TodoList'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('todoList', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
+
 
       name: 'notfound',
       getComponent(nextState, cb) {
