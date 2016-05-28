@@ -47,7 +47,15 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
+      path: '/add-workout',
+      getComponent(location, cb) {
+        System.import('containers/AddWorkoutPage')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
       path: '*',
+
       name: 'notfound',
       getComponent(nextState, cb) {
         System.import('containers/NotFoundPage')
