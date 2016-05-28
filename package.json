@@ -93,6 +93,7 @@
         }
       ],
       "no-console": 1,
+      "semi": 0,
       "max-len": 0,
       "prefer-template": 2,
       "no-use-before-define": 0,
