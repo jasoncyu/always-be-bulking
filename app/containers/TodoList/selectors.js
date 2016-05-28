@@ -16,7 +16,9 @@ const selectTodoListDomain = () => state => state.get('todoList');
 
 const selectTodoList = () => createSelector(
   selectTodoListDomain(),
-  (substate) => substate.toJS()
+  (substate) => {
+    return substate.toJS()
+  }
 );
 
 export default selectTodoList;

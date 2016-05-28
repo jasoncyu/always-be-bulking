@@ -12,32 +12,24 @@ import {
   TOGGLE_TODO,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  todos: fromJS([]),
+});
 
 function todoListReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_TODO:
-      return {
-        ...state,
-        todos: [
-          ...state.todos,
-          {
-            text: action.text,
-            completed: false,
-          },
-        ],
-      }
+    case ADD_TODO: {
+      return state
+        .set('todos', state.get('todos').concat([{ text: action.text }]))
+    }
     case DEFAULT_ACTION:
       return state;
     case SET_VISIBILITY_FILTER:
-      return {
-        ...state,
-        visibilityFilter: action.filter,
-      }
+      return state
+        .set('visibilityFilter', action.filter)
     case TOGGLE_TODO:
-      return {
-        ...state,
-        todos: state.todos.map((todo) => {
+      return state
+        .set('todos', state.todos.map((todo) => {
           if (todo.index === action.index) {
             return {
               ...todo,
@@ -45,8 +37,7 @@ function todoListReducer(state = initialState, action) {
             }
           }
           return todo
-        }),
-      }
+        }))
     default:
       return state;
   }
