@@ -28,8 +28,6 @@ export class TodoList extends React.Component { // eslint-disable-line react/pre
   }
 }
 
-const mapStateToProps = selectTodoList();
-
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
