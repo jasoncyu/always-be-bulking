@@ -11,7 +11,7 @@ import styles from './styles.css';
 function Todo({ onClick, completed, text }) {
   return (
     <li
-      className={styles.done ? completed : styles.todo}
+      className={completed ? styles.done : styles.todo}
       onClick={onClick}
     >
       {text}

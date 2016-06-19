@@ -10,13 +10,23 @@ import selectTodoList from './selectors';
 import styles from './styles.css';
 
 import AddTodo from '../../containers/AddTodo'
+import Todo from '../../components/Todo'
 
 export class TodoList extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div className={styles.todoList}>
-        This is TodoList container !
-        {this.props.todos.map(todo => <div>{todo.text}</div>)}
+        <ul>
+          {this.props.todos.map(todo => {
+            return (
+              <Todo
+                key={todo.id}
+                {...todo}
+                onClick={() => this.props.onTodoClick(todo.id)}
+              />
+            )
+          })}
+        </ul>
         <AddTodo />
       </div>
     );
@@ -25,12 +35,20 @@ export class TodoList extends React.Component { // eslint-disable-line react/pre
 
 TodoList.propTypes = {
   todos: React.PropTypes.array.isRequired,
+  onTodoClick: React.PropTypes.func.isRequired,
 }
 
 const mapStateToProps = selectTodoList();
 
 function mapDispatchToProps(dispatch) {
   return {
+    onTodoClick(id) {
+      console.log('ontodoclick');
+      dispatch({
+        type: 'TOGGLE_TODO',
+        id,
+      })
+    },
     dispatch,
   };
 }
