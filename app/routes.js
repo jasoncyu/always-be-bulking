@@ -76,8 +76,6 @@ export default function createRoutes(store) {
     }, {
       path: '*',
 
-
-
       name: 'notfound',
       getComponent(nextState, cb) {
         System.import('containers/NotFoundPage')

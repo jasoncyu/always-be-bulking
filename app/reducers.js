@@ -42,12 +42,14 @@ function routeReducer(state = routeInitialState, action) {
  */
 import addWorkoutPageReducer from 'containers/AddWorkoutPage/reducer';
 import todoListReducer from 'containers/TodoList/reducer';
+import addTodoReducer from 'containers/AddTodo/reducer';
 export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     global: globalReducer,
     addWorkoutPage: addWorkoutPageReducer,
     todoList: todoListReducer,
+    addTodo: addTodoReducer,
     ...asyncReducers,
   });
 }
