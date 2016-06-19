@@ -3,7 +3,18 @@ import todoListReducer from '../reducer';
 import { fromJS } from 'immutable';
 
 describe('todoListReducer', () => {
-  it('returns the initial state', () => {
-    expect(todoListReducer(undefined, {})).toEqual(fromJS({}));
-  });
+  it('allows you to add todos', () => {
+    const todoText = 'A todo'
+    expect(todoListReducer(undefined, {
+      type: 'ADD_TODO',
+      text: todoText,
+    })).toEqual(fromJS({
+      todos: [
+        {
+          text: todoText,
+          completed: false,
+        },
+      ],
+    }))
+  })
 });

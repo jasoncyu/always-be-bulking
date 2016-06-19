@@ -9,7 +9,9 @@ import {
   DEFAULT_ACTION,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  todos: [],
+});
 
 function todoListReducer(state = initialState, action) {
   switch (action.type) {
@@ -21,7 +23,7 @@ function todoListReducer(state = initialState, action) {
             text: action.text,
             completed: false,
           }))
-        ))
+        ));
     case DEFAULT_ACTION:
       return state;
     default:

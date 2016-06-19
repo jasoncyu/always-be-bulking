@@ -3,13 +3,7 @@
 ## Table of Contents
 
 - [General](general)
-  - [**CLI Commands**](general/commands.md)
-  - [Tool Configuration](general/files.md)
-  - [Server Configurations](general/server-configs.md)
-  - [Deployment](general/deployment.md) *(currently Heroku specific)*
-  - [FAQ](general/faq.md)
-  - [Gotchas](general/gotchas.md)
-  - [Remove](general/remove.md)
+  - [**C.md)
 - [Testing](testing)
   - [Unit Testing](testing/unit-testing.md)
   - [Component Testing](testing/component-testing.md)
