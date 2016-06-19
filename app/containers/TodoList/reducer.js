@@ -11,19 +11,27 @@ import {
 
 const initialState = fromJS({
   todos: [],
+  visibilityFilter: 'SHOW_ALL',
 });
 
 function todoListReducer(state = initialState, action) {
   switch (action.type) {
     case 'ADD_TODO':
-      return state.set(
-        'todos',
-        state.get('todos').concat(
-          Immutable.List.of(Immutable.Map({
+      return fromJS({
+        ...state.toJS(),
+        todos: [
+          ...state.get('todos').toJS(),
+          {
             text: action.text,
             completed: false,
-          }))
-        ));
+          },
+        ],
+      })
+    case 'SET_VISIBILITY_FILTER':
+      return state.set(
+        'visibilityFilter',
+        action.filter,
+      )
     case DEFAULT_ACTION:
       return state;
     default:
