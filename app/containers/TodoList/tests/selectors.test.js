@@ -1,11 +1,11 @@
 import {
-  selectTodoList,
+  selectTodoListDomain,
 } from '../selectors';
 import { fromJS } from 'immutable';
 import expect from 'expect';
 
-const selector = selectTodoList();
+const selector = selectTodoListDomain();
 
-describe('selectTodoList', () => {
+describe('selectTodoListDomain', () => {
 
 });

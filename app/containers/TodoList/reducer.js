@@ -9,17 +9,11 @@ import {
   DEFAULT_ACTION,
 } from './constants';
 
-const initialState = fromJS({
-  todos: [{
-    text: 'First todo',
-    completed: false,
-  }],
-});
+const initialState = fromJS({});
 
 function todoListReducer(state = initialState, action) {
   switch (action.type) {
     case 'ADD_TODO':
-      console.log('processing add todo');
       return state.set(
         'todos',
         state.get('todos').concat(

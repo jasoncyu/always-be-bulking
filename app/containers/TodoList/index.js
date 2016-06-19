@@ -13,7 +13,6 @@ import AddTodo from '../../containers/AddTodo'
 
 export class TodoList extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    console.log("todolist this.props: ", this.props);
     return (
       <div className={styles.todoList}>
         This is TodoList container !

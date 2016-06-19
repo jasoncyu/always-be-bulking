@@ -45,21 +45,19 @@ AddTodo.propTypes = {
   addTodo: React.PropTypes.func,
 }
 
-/* const mapStateToProps = selectAddTodo()*/
+const mapStateToProps = selectAddTodo()
 
-const mapStateToProps = createSelector(
-  selectAddTodo(),
-  selectTodoListDomain(),
-  (asdf, todos) => ({ asdf, todos })
-)
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addTodo: (text) => {
-      dispatch(addTodoAction(text))
-    },
-    dispatch,
-  };
-}
+/* const mapStateToProps = createSelector(
+ *   selectAddTodo(),
+ *   selectTodoListDomain(),
+ *   (asdf, todos) => ({ asdf, todos })
+ * )
+ * */
+const mapDispatchToProps = (dispatch) => ({
+  addTodo(text) {
+    dispatch(addTodoAction(text))
+  },
+  dispatch,
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddTodo);
