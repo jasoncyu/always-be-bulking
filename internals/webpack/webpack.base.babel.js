@@ -32,30 +32,26 @@ module.exports = (options) => ({
       include: /node_modules/,
       loaders: ['style-loader', 'css-loader'],
     }, {
-      test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
-      loader: 'url-loader?limit=10000',
+      test: /\.(eot|svg|ttf|woff|woff2)$/,
+      loader: 'file-loader',
     }, {
-      test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'file?name=fonts/[name].[hash].[ext]&mimetype=application/font-woff',
-    }, {
-      test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'file?name=fonts/[name].[hash].[ext]&mimetype=application/font-woff',
-    }, {
-      test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'file?name=fonts/[name].[hash].[ext]&mimetype=application/octet-stream',
-    }, {
-      test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'file?name=fonts/[name].[hash].[ext]',
+      test: /\.(jpg|png|gif)$/,
+      loaders: [
+        'file-loader',
+        'image-webpack?{progressive:true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}}',
+      ],
     }, {
       test: /\.html$/,
       loader: 'html-loader',
     }, {
       test: /\.json$/,
       loader: 'json-loader',
+    }, {
+      test: /\.(mp4|webm)$/,
+      loader: 'url-loader?limit=10000',
     }],
   },
   plugins: options.plugins.concat([
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
     new webpack.ProvidePlugin({
       // make fetch available
       fetch: 'exports?self.fetch!whatwg-fetch',

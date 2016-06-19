@@ -24,6 +24,8 @@
   <a href="https://coveralls.io/r/mxstbr/react-boilerplate">
     <img src="https://coveralls.io/repos/github/mxstbr/react-boilerplate/badge.svg" alt="Test Coverage" />
   </a>
+</div>
+<div align="center">
     <!-- Backers -->
   <a href="#backers">
     <img src="https://opencollective.com/react-boilerplate/backers/badge.svg" alt="Backers" />
@@ -31,6 +33,10 @@
       <!-- Sponsors -->
   <a href="#sponsors">
     <img src="https://opencollective.com/react-boilerplate/sponsors/badge.svg" alt="Sponsors" />
+  </a>
+  <!-- Gitter -->
+  <a href="https://gitter.im/mxstbr/react-boilerplate">
+    <img src="https://camo.githubusercontent.com/54dc79dc7da6b76b17bc8013342da9b4266d993c/68747470733a2f2f6261646765732e6769747465722e696d2f6d78737462722f72656163742d626f696c6572706c6174652e737667" alt="Gitter Chat" />
   </a>
 </div>
 
@@ -69,7 +75,7 @@ But wait... there's more!
 
   - *The best test setup:* Automatically guarantee code quality and non-breaking
     changes. (Seen a react app with 99% test coverage before?)
-  - *Native web app:* Your app's new home? The homescreen of your users' phones.
+  - *Native web app:* Your app's new home? The home screen of your users' phones.
   - *The fastest fonts:* Say goodbye to vacant text.
   - *Stay fast*: Profile your app's performance from the comfort of your command
     line!

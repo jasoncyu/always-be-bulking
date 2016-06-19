@@ -43,6 +43,15 @@ openSansObserver.check().then(() => {
 const initialState = {};
 const store = configureStore(initialState, browserHistory);
 
+// If you use Redux devTools extension, since v2.0.1, they added an
+// `updateStore`, so any enhancers that change the store object
+// could be used with the devTools' store.
+// As this boilerplate uses Redux & Redux-Saga, the `updateStore` is needed
+// if you want to `take` actions in your Sagas, dispatched from devTools.
+if (window.devToolsExtension) {
+  window.devToolsExtension.updateStore(store);
+}
+
 // Sync history and store, as the react-router-redux reducer
 // is under the non-default key ("routing"), selectLocationState
 // must be provided for resolving how to retrieve the "route" in the state
@@ -102,21 +111,7 @@ ReactDOM.render(
       render={
         // Scroll to top when going to a new page, imitating default browser
         // behaviour
-        applyRouterMiddleware(
-          useScroll(
-            (prevProps, props) => {
-              if (!prevProps || !props) {
-                return true;
-              }
-
-              if (prevProps.location.pathname !== props.location.pathname) {
-                return [0, 0];
-              }
-
-              return true;
-            }
-          )
-        )
+        applyRouterMiddleware(useScroll())
       }
     />
   </Provider>,
