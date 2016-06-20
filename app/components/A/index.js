@@ -12,6 +12,12 @@ function A(props) {
       className={
         props.className || styles.link
       }
+      onClick={evt => {
+        if (this.props.onClick) {
+          evt.preventDefault()
+          this.props.onClick()
+        }
+      }}
       { ...props }
     />
   );
@@ -22,6 +28,7 @@ A.propTypes = {
   href: PropTypes.string.isRequired,
   target: PropTypes.string,
   children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default A;

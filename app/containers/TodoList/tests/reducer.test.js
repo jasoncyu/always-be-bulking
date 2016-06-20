@@ -2,6 +2,10 @@ import expect from 'expect';
 import todoListReducer from '../reducer';
 import { fromJS } from 'immutable';
 
+import {
+  SET_VISIBILITY_FILTER,
+} from '../../FilterLink/constants'
+
 describe('todoListReducer', () => {
   it('allows you to add todos', () => {
     const todoText = 'A todo'
@@ -19,7 +23,7 @@ describe('todoListReducer', () => {
 
   it('allows you to adjust visible todos', () => {
     expect(todoListReducer(undefined, {
-      type: 'SET_VISIBILITY_FILTER',
+      type: SET_VISIBILITY_FILTER,
       filter: 'SHOW_ALL',
     }).get('visibilityFilter')).toEqual('SHOW_ALL')
   })

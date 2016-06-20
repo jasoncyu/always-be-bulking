@@ -8,6 +8,9 @@ import { fromJS } from 'immutable';
 import {
   DEFAULT_ACTION,
 } from './constants';
+import {
+  SET_VISIBILITY_FILTER,
+} from '../FilterLink/constants'
 
 const initialState = fromJS({
   todos: [],
@@ -41,7 +44,7 @@ function todoListReducer(state = initialState, action) {
           }
         }),
       })
-    case 'SET_VISIBILITY_FILTER':
+    case SET_VISIBILITY_FILTER:
       return state.set(
         'visibilityFilter',
         action.filter,

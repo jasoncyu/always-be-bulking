@@ -43,7 +43,6 @@ const mapStateToProps = selectTodoList();
 function mapDispatchToProps(dispatch) {
   return {
     onTodoClick(id) {
-      console.log('ontodoclick');
       dispatch({
         type: 'TOGGLE_TODO',
         id,
