@@ -12,6 +12,9 @@ import styles from './styles.css';
 import AddTodo from '../../containers/AddTodo'
 import Todo from '../../components/Todo'
 
+const getVisibleTodos = (todos, filter) => {
+}
+
 export class TodoList extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
