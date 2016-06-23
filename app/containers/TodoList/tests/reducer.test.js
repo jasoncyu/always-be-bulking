@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 
 import {
   TOGGLE_TODO,
-} from '../actions'
+} from '../constants'
 
 import {
   SET_VISIBILITY_FILTER,
