@@ -7,6 +7,7 @@
 import { fromJS } from 'immutable';
 import {
   DEFAULT_ACTION,
+  TOGGLE_TODO,
 } from './constants';
 import {
   SET_VISIBILITY_FILTER,
@@ -31,7 +32,7 @@ function todoListReducer(state = initialState, action) {
           },
         ],
       })
-    case 'TOGGLE_TODO':
+    case TOGGLE_TODO:
       return fromJS({
         ...state.toJS(),
         todos: state.get('todos').toJS().map(todo => {

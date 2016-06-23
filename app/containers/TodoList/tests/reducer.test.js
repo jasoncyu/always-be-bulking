@@ -3,6 +3,10 @@ import todoListReducer from '../reducer';
 import { fromJS } from 'immutable';
 
 import {
+  TOGGLE_TODO,
+} from '../actions'
+
+import {
   SET_VISIBILITY_FILTER,
 } from '../../FilterLink/constants'
 
@@ -48,7 +52,7 @@ describe('todoListReducer', () => {
     })
 
     const action = {
-      type: 'TOGGLE_TODO',
+      type: TOGGLE_TODO,
       id: 1,
     }
 

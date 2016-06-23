@@ -8,6 +8,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import selectTodoList, { getVisibleTodos } from './selectors';
 import styles from './styles.css';
+import { toggleTodoAction } from './actions'
 
 import AddTodo from '../../containers/AddTodo'
 import Todo from '../../components/Todo'
@@ -38,8 +39,6 @@ TodoList.propTypes = {
   onTodoClick: React.PropTypes.func.isRequired,
 }
 
-/* const mapStateToProps = selectTodoList();*/
-
 const mapStateToProps = (state) => {
   const visibleTodos = getVisibleTodos(state)
   return {
@@ -50,10 +49,7 @@ const mapStateToProps = (state) => {
 function mapDispatchToProps(dispatch) {
   return {
     onTodoClick(id) {
-      dispatch({
-        type: 'TOGGLE_TODO',
-        id,
-      })
+      dispatch(toggleTodoAction(id))
     },
     dispatch,
   };
