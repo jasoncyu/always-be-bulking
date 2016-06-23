@@ -6,14 +6,11 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import selectTodoList from './selectors';
+import selectTodoList, { getVisibleTodos } from './selectors';
 import styles from './styles.css';
 
 import AddTodo from '../../containers/AddTodo'
 import Todo from '../../components/Todo'
-
-const getVisibleTodos = (todos, filter) => {
-}
 
 export class TodoList extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -41,7 +38,15 @@ TodoList.propTypes = {
   onTodoClick: React.PropTypes.func.isRequired,
 }
 
-const mapStateToProps = selectTodoList();
+/* const mapStateToProps = selectTodoList();*/
+
+const mapStateToProps = (state) => {
+  const visibleTodos = getVisibleTodos(state)
+  console.log('visibleTodos: ', visibleTodos);
+  return {
+    todos: visibleTodos,
+  }
+}
 
 function mapDispatchToProps(dispatch) {
   return {

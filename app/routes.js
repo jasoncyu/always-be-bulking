@@ -74,7 +74,15 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/todos-app',
+      getComponent(location, cb) {
+        System.import('components/TodoApp')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
       path: '*',
+
 
       name: 'notfound',
       getComponent(nextState, cb) {

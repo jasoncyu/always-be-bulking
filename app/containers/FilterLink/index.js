@@ -5,20 +5,47 @@
  *
  */
 
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import selectFilterLink from './selectors';
 import { setVisibilityFilter } from './actions'
+import styles from './styles.css'
 
-import A from '../../components/A'
-const mapStateToProps = selectFilterLink();
+const FilterLink = ({ active, children, onClick }) => {
+  if (active) {
+    return <span>{children}</span>
+  }
 
-function mapDispatchToProps(dispatch, ownProps) {
-  return {
-    onClick() {
-      dispatch(setVisibilityFilter(ownProps.filter))
-    },
-    dispatch,
-  };
+  return (
+    <a
+      className={styles.filterLink}
+      onClick={e => {
+        e.preventDefault()
+        onClick()
+      }}
+    >
+      {children}
+    </a>
+  )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(A);
+FilterLink.propTypes = {
+  active: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    active: ownProps.filter === state.visibilityFilter,
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onClick: () => {
+      dispatch(setVisibilityFilter(ownProps.filter))
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterLink)

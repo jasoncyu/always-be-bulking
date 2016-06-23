@@ -1,3 +1,4 @@
 .filterLink {
-
+  /* Needed because this <a> doesn't have a href */
+  cursor: pointer;
 }
