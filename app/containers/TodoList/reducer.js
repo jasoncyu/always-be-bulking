@@ -25,6 +25,7 @@ function todoListReducer(state = initialState, action) {
         todos: [
           ...state.get('todos').toJS(),
           {
+            id: action.id,
             text: action.text,
             completed: false,
           },

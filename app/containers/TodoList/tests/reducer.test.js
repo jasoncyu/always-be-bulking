@@ -9,16 +9,19 @@ import {
 describe('todoListReducer', () => {
   it('allows you to add todos', () => {
     const todoText = 'A todo'
-    expect(todoListReducer(undefined, {
+    const action = {
       type: 'ADD_TODO',
       text: todoText,
-    }).get('todos')).toEqual(
-      fromJS([
-        {
-          text: todoText,
-          completed: false,
-        },
-      ]))
+    }
+
+    const actualState = todoListReducer(undefined, action)
+    const actualTodo = actualState.get('todos').get(0)
+    const expectedTodo = fromJS({
+      text: todoText,
+      completed: false,
+    })
+
+    expect(actualTodo.isSuperset(expectedTodo))
   })
 
   it('allows you to adjust visible todos', () => {
