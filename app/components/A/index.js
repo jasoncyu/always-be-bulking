@@ -12,13 +12,7 @@ function A(props) {
       className={
         props.className || styles.link
       }
-      onClick={evt => {
-        if (this.props.onClick) {
-          evt.preventDefault()
-          this.props.onClick()
-        }
-      }}
-      { ...props }
+      {...props}
     />
   );
 }
