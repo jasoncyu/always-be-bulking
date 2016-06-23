@@ -42,7 +42,6 @@ TodoList.propTypes = {
 
 const mapStateToProps = (state) => {
   const visibleTodos = getVisibleTodos(state)
-  console.log('visibleTodos: ', visibleTodos);
   return {
     todos: visibleTodos,
   }

@@ -8,15 +8,17 @@ import React, { PropTypes } from 'react';
 
 import styles from './styles.css';
 
-function Todo({ onClick, completed, text }) {
-  return (
-    <li
-      className={completed ? styles.done : styles.todo}
-      onClick={onClick}
-    >
-      {text}
-    </li>
-  );
+class Todo extends React.Component {
+  render() {
+    return (
+      <li
+        className={this.props.completed ? styles.done : styles.todo}
+        onClick={this.props.onClick}
+      >
+        {this.props.text}
+      </li>
+    );
+  }
 }
 
 Todo.propTypes = {
