@@ -6,6 +6,7 @@
 
 import { fromJS } from 'immutable';
 import {
+  ADD_TODO,
   DEFAULT_ACTION,
   TOGGLE_TODO,
 } from './constants';
@@ -20,7 +21,7 @@ const initialState = fromJS({
 
 function todoListReducer(state = initialState, action) {
   switch (action.type) {
-    case 'ADD_TODO':
+    case ADD_TODO:
       return fromJS({
         ...state.toJS(),
         todos: [

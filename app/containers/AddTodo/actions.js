@@ -5,6 +5,7 @@
  */
 
 import {
+  ADD_TODO,
   DEFAULT_ACTION,
 } from './constants';
 
@@ -18,7 +19,7 @@ let nextTodoID = 0
 export function addTodoAction(text) {
   return {
     id: nextTodoID++,
-    type: 'ADD_TODO',
+    type: ADD_TODO,
     text,
   }
 }

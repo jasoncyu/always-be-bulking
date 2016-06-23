@@ -3,6 +3,7 @@ import todoListReducer from '../reducer';
 import { fromJS } from 'immutable';
 
 import {
+  ADD_TODO,
   TOGGLE_TODO,
 } from '../constants'
 
@@ -14,7 +15,7 @@ describe('todoListReducer', () => {
   it('allows you to add todos', () => {
     const todoText = 'A todo'
     const action = {
-      type: 'ADD_TODO',
+      type: ADD_TODO,
       text: todoText,
     }
 
