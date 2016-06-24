@@ -9,10 +9,13 @@ import {
   ADD_TODO,
   DEFAULT_ACTION,
   TOGGLE_TODO,
+  SAVE_TODOS,
 } from './constants';
 import {
   SET_VISIBILITY_FILTER,
 } from '../FilterLink/constants'
+
+import firebase from 'firebase'
 
 const initialState = fromJS({
   todos: [],
@@ -52,6 +55,11 @@ function todoListReducer(state = initialState, action) {
         'visibilityFilter',
         action.filter,
       )
+    case SAVE_TODOS:
+      firebase.database().ref('/todos').set(state.get('todos').toJS()).then(() => {
+        console.log('saving done');
+      })
+      return state
     case DEFAULT_ACTION:
       return state;
     default:
