@@ -2,8 +2,11 @@
  * Create the store with asynchronously loaded reducers
  */
 
-import { createStore, applyMiddleware, compose } from 'redux';
-import { fromJS } from 'immutable';
+import { isStatePlainEnough, createStore, applyMiddleware, compose } from 'redux';
+console.log('isStatePlainEnough: ', isStatePlainEnough);
+import { createTransform, persistStore, autoRehydrate } from 'redux-persist'
+import immutableTransform from 'redux-persist-transform-immutable'
+import { fromJS, toJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
@@ -23,6 +26,7 @@ export default function configureStore(initialState = {}, history) {
   const enhancers = [
     applyMiddleware(...middlewares),
     devtools(),
+    autoRehydrate({config: true}),
   ];
 
   const store = createStore(
@@ -30,6 +34,43 @@ export default function configureStore(initialState = {}, history) {
     fromJS(initialState),
     compose(...enhancers)
   );
+
+  window.store = store
+
+  const immutableJSTransform = createTransform(
+    // Inbound into the persistent storage
+    (inboundState) => {
+      console.log('inboundState: ', inboundState);
+      const serializableState = toJS(inboundState)
+      console.log('serializableState: ', serializableState);
+      /* return serializableState*/
+      return {}
+    },
+    (outboundState) => {
+      console.log('outboundState: ', outboundState);
+      const immutableState = fromJS(outboundState)
+      console.log('immutableState: ', immutableState);
+      /* return immutableState*/
+      return {}
+    },
+    {whitelist: ['todoList']},
+  )
+
+  const dummyTransform = createTransform(
+    (inboundState) => {
+      console.log('dummy inbound');
+    },
+    (outboundState) => {
+      console.log('dummy outbound');
+    },
+  )
+  persistStore(
+    store,
+    {
+      transforms: [immutableJSTransform],
+      whitelist: ['todoList'],
+    },
+  )
 
   // Extensions
   store.runSaga = sagaMiddleware.run;
