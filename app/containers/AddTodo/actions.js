@@ -5,9 +5,12 @@
  */
 
 import {
-  ADD_TODO,
   DEFAULT_ACTION,
 } from './constants';
+
+import {
+  ADD_TODO,
+} from '../TodoList/constants'
 
 export function defaultAction() {
   return {
