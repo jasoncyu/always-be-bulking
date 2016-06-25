@@ -101,7 +101,28 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/counter',
+      name: 'counterSaga',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/CounterSaga/reducer'),
+          System.import('containers/CounterSaga/sagas'),
+          System.import('containers/CounterSaga'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('counterSaga', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
+
 
 
 
