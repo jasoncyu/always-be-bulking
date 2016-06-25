@@ -80,8 +80,29 @@ export default function createRoutes(store) {
           .then(loadModule(cb))
           .catch(errorLoading);
       },
+    },    {
+      path: '/workouts',
+      name: 'workoutList',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/WorkoutList/reducer'),
+          System.import('containers/WorkoutList/sagas'),
+          System.import('containers/WorkoutList'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('workoutList', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
     }, {
       path: '*',
+
 
 
       name: 'notfound',

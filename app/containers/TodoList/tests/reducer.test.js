@@ -3,7 +3,6 @@ import todoListReducer from '../reducer';
 import { fromJS } from 'immutable';
 
 import {
-  ADD_TODO,
   TOGGLE_TODO,
 } from '../constants'
 
@@ -12,23 +11,6 @@ import {
 } from '../../FilterLink/constants'
 
 describe('todoListReducer', () => {
-  it('allows you to add todos', () => {
-    const todoText = 'A todo'
-    const action = {
-      type: ADD_TODO,
-      text: todoText,
-    }
-
-    const actualState = todoListReducer(undefined, action)
-    const actualTodo = actualState.get('todos').get(0)
-    const expectedTodo = fromJS({
-      text: todoText,
-      completed: false,
-    })
-
-    expect(actualTodo.isSuperset(expectedTodo))
-  })
-
   it('allows you to adjust visible todos', () => {
     expect(todoListReducer(undefined, {
       type: SET_VISIBILITY_FILTER,

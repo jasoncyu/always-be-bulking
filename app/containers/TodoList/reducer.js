@@ -6,7 +6,6 @@
 
 import { fromJS } from 'immutable';
 import {
-  ADD_TODO,
   DEFAULT_ACTION,
   TOGGLE_TODO,
   SAVE_TODOS,
@@ -24,18 +23,6 @@ const initialState = fromJS({
 
 function todoListReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_TODO:
-      return fromJS({
-        ...state.toJS(),
-        todos: [
-          ...state.get('todos').toJS(),
-          {
-            id: action.id,
-            text: action.text,
-            completed: false,
-          },
-        ],
-      })
     case TOGGLE_TODO:
       return fromJS({
         ...state.toJS(),
@@ -56,9 +43,9 @@ function todoListReducer(state = initialState, action) {
         action.filter,
       )
     case SAVE_TODOS:
-      firebase.database().ref('/todos').set(state.get('todos').toJS()).then(() => {
-        console.log('saving done');
-      })
+      /* firebase.database().ref('/todos').set(state.get('todos').toJS()).then(() => {
+       *   console.log('saving done');
+       * })*/
       return state
     case DEFAULT_ACTION:
       return state;

@@ -12,8 +12,7 @@ import styles from './styles.css';
 export class AddWorkoutPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div className={ styles.addWorkoutPage }>
-      This is AddWorkoutPage container !
+      <div className={styles.addWorkoutPage}>
       </div>
     );
   }
