@@ -22,7 +22,7 @@ export function* helloSaga() {
 
 export function* incrementAsync() {
   console.log('incrementAsync called');
-  yield delay(1000)
+  yield call(delay, 1000)
   yield put(incrementAction())
 }
 
@@ -32,5 +32,6 @@ export function* watchIncrementAsync() {
 
 // All sagas to be loaded
 export default [
+  helloSaga,
   watchIncrementAsync,
 ];
