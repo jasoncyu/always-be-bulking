@@ -120,8 +120,29 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
+    },    {
+      path: '/subreddits',
+      name: 'viewSubreddits',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/ViewSubreddits/reducer'),
+          System.import('containers/ViewSubreddits/sagas'),
+          System.import('containers/ViewSubreddits'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('viewSubreddits', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
     }, {
       path: '*',
+
 
 
 
