@@ -21,8 +21,8 @@ export class ViewSubreddits extends React.Component { // eslint-disable-line rea
         </button>
         <ul>
           {this.props.subredditTitles.map(st => {
-             return <li>{st}</li>
-           })}
+            return <li>{st}</li>
+          })}
         </ul>
       </div>
     );

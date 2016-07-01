@@ -22,20 +22,16 @@ export default function configureStore(initialState = {}, history) {
     const db = firebase.database()
 
     const serializableState = store.getState().filter((value, key) => {
-      if (_.includes(['todoList', 'workouts'], key)) {
+      if (_.includes(['todoList', 'workouts', 'workoutList'], key)) {
         return true
       }
     }).toJS()
     console.log('serializableState: ', serializableState);
-    fb.getCurrentUser().then((user) => {
-      firebase.database().ref(`users/${user.uid}/`).set(
-        serializableState
-      )
-    })
-
-    db.ref('/somePath').set(serializableState).then(() => {
-      console.log('saved to firebase');
-    })
+    /* fb.getCurrentUser().then((user) => {
+     *   firebase.database().ref(`users/${user.uid}/`).set(
+     *     serializableState
+     *   )
+     * })*/
 
     return result
   }
