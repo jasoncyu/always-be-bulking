@@ -1,4 +1,5 @@
 import { fork, take, call, put, select } from 'redux-saga/effects';
+import { eventChannel, END } from 'redux-saga'
 
 import firebase, * as fb from '../../firebase'
 
@@ -13,6 +14,34 @@ export default [
   defaultSaga,
 ];
 
+const countdown = (secs) => {
+  return eventChannel(emitter => {
+    const iv = setInterval(() => {
+      secs -= 1
+      if (secs > 0) {
+        emitter(secs)
+      } else {
+        emitter(END)
+        clearInterval(iv)
+      }
+    }, 1000)
+    return () => {
+      clearInterval(iv)
+    }
+  })
+}
+
+export function* watchCountdown() {
+  const chan = yield call(countdown, 10)
+  try {
+    while (true) {
+      const seconds = yield take(chan)
+      console.log(`countdown: ${seconds}`);
+    }
+  } finally {
+    console.log('countdown terminated');
+  }
+}
 
 export function* watchAddLift() {
   const liftAction = yield take(ADD_LIFT_ACTION)
@@ -31,5 +60,6 @@ export function* watchAddLift() {
 export function* defaultSaga() {
   yield [
     fork(watchAddLift),
+    fork(watchCountdown),
   ]
 }

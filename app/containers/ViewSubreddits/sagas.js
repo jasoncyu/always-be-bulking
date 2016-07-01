@@ -7,7 +7,7 @@ export default [
   defaultSaga,
 ];
 
-function* viewSubreddit() {
+export function* viewSubreddit() {
   const subreddit = 'askreddit'
   const subredditURL = `http://www.reddit.com/r/${subreddit}.json`
   try {
