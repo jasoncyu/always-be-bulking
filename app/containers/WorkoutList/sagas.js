@@ -7,6 +7,7 @@ import {
   ADD_LIFT_ACTION,
   ADD_LIFT_ACTION_SUCCESS,
   ADD_LIFT_ACTION_ERROR,
+  FIREBASE_LIFT_CHANGED,
 } from './constants'
 
 // All sagas to be loaded
@@ -31,6 +32,37 @@ const countdown = (secs) => {
   })
 }
 
+/**
+ * Will yield actions that we can just dispatch
+ */
+const firebaseEvent = () => {
+  return eventChannel(emitter => {
+    fb.getCurrentUser().then((user) => {
+      const db = firebase.database()
+      const liftsRef = db.ref('/lifts')
+      liftsRef.on('value', (liftsSnapshot) => {
+        emitter({
+          type: FIREBASE_LIFT_CHANGED,
+          payload: liftsSnapshot.val() || {},
+        })
+      })
+    })
+
+    return () => {
+      firebase.database().ref().off()
+    }
+  })
+}
+
+export function* watchFirebase() {
+  const chan = yield call(firebaseEvent)
+
+  while (true) {
+    const action = yield take(chan)
+    yield put(action)
+  }
+}
+
 export function* watchCountdown() {
   const chan = yield call(countdown, 10)
   try {
@@ -46,7 +78,7 @@ export function* watchCountdown() {
 export function* watchAddLift() {
   const liftAction = yield take(ADD_LIFT_ACTION)
 
-  const lift = {name: liftAction.name}
+  const lift = liftAction.lift
   try {
     const liftRes = yield fb.addLift(lift)
     console.log('liftRes: ', liftRes);
@@ -60,6 +92,7 @@ export function* watchAddLift() {
 export function* defaultSaga() {
   yield [
     fork(watchAddLift),
-    fork(watchCountdown),
+    /* fork(watchCountdown),*/
+    fork(watchFirebase),
   ]
 }

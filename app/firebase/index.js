@@ -1,7 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/database'
 import 'firebase/auth'
-console.log('firebase: ', firebase);
 import chalk from 'chalk'
 
 // Initialize Firebase
@@ -16,7 +15,6 @@ const app = firebase.initializeApp(config);
 const myUserID = 'zl2jhz5tUjSGWbDYmscYE7f6tJl2'
 const currentUserID = myUserID
 export const firebaseApp = app
-window.firebaseApp = firebaseApp
 
 
 export const getCurrentUser = () => {
@@ -44,8 +42,9 @@ export const getCurrentUser = () => {
 }
 export const currentUserWorkoutsRef = firebase.database().ref(`/users/${currentUserID}/workouts`)
 
-export const addLift = (liftObj = { name }) => {
-  return firebase.database().ref(`/users/${currentUserID}/lifts`).push(liftObj)
+export const addLift = (liftObj) => {
+  console.log('liftObj: ', liftObj);
+  return firebase.database().ref('/lifts').push(liftObj)
 }
 
 export default firebase

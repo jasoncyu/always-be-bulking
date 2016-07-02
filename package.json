@@ -79,7 +79,13 @@
       "arrow-body-style": 0,
       "comma-dangle": 0,
       "import/no-unresolved": 2,
-      "indent": [2, 2, { "SwitchCase": 1 }],
+      "indent": [
+        2,
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
       "jsx-a11y/aria-props": 2,
       "jsx-a11y/href-no-hash": 2,
       "jsx-a11y/label-has-for": 2,
@@ -88,6 +94,7 @@
       "jsx-a11y/role-supports-aria-props": 2,
       "max-len": 0,
       "new-cap": 0,
+      "no-unused-vars": 0,
       "newline-per-chained-call": 0,
       "no-console": 1,
       "no-use-before-define": 0,
@@ -150,6 +157,7 @@
     "immutable": "^3.8.1",
     "ip": "^1.1.2",
     "minimist": "^1.2.0",
+    "ramda": "^0.21.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.5",

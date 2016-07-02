@@ -12,6 +12,8 @@ import selectWorkoutList from './selectors';
 import styles from './styles.css';
 import { currentUserWorkoutsRef } from '../../firebase'
 
+import R from 'ramda'
+
 import {
   addWorkoutAction,
   addLiftAction,
@@ -21,26 +23,40 @@ import {
 export class WorkoutList extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
     super()
-    currentUserWorkoutsRef.on('value', (workoutsSnapshot) => {
-      console.log('workouts: ', workoutsSnapshot.val());
-    })
   }
 
   render() {
+    console.log('this.props.lifts: ', this.props.lifts);
     return (
       <div className={styles.workoutList}>
         <input
           type="text"
           onChange={(evt) => this.props.changeNewLift({name: evt.target.value})}
         />
+        <select>
+          {
+            R.pipe(
+              R.toPairs,
+              (R.map((pair) => {
+                const lift = pair[1]
+                return (
+                  <option>
+                    {lift.name}
+                  </option>
+                )
+              }))
+            )(this.props.lifts)
+          }
+        </select>
         <div
           className={'ui button'}
           onClick={() => {
-            const currentLift = this.props.currentLift
-            if (currentLift.name === '') {
+            const newLift = this.props.newLift
+            console.log('newLift: ', newLift);
+            if (newLift.name === '') {
               return
             }
-            this.props.addLift(currentLift)
+            this.props.addLift(newLift)
           }}
         >
           Add Lift
@@ -64,8 +80,8 @@ function mapDispatchToProps(dispatch) {
     changeNewLift(lift) {
       dispatch(changeNewLiftAction(lift))
     },
-    addLift(currentLift) {
-      dispatch(addLiftAction(currentLift))
+    addLift(newLift) {
+      dispatch(addLiftAction(newLift))
     },
     addWorkout() {
       dispatch(addWorkoutAction())
