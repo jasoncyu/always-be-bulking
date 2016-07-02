@@ -45,6 +45,13 @@ module.exports = require('./webpack.base.babel')({
   // Load the CSS in a style tag in development
   cssLoaders: 'style-loader!css-loader?localIdentName=[local]__[path][name]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader',
 
+  // Load SCSS from react-toolbox
+  scssLoaders: [
+    'style-loader',
+    'css-loader?modules&sourceMap&importLoaders=2&localIdentName=[name]__[local]___[hash:base64:5]',
+    'sass-loader'
+  ],
+
   // Process the CSS with PostCSS
   postcssPlugins: [
     postcssFocus(), // Add a :focus to every :hover
