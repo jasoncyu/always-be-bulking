@@ -18,9 +18,10 @@ export function defaultAction() {
   };
 }
 
-export function addWorkoutAction() {
+export function addWorkoutAction(workout) {
   return {
     type: ADD_WORKOUT_ACTION,
+    workout,
   }
 }
 

@@ -12,6 +12,7 @@ import selectWorkoutList, {
   selectSelectedLift,
   selectNewLift,
   selectLifts,
+  selectWorkouts,
 } from './selectors';
 
 import styles from './styles.css';
@@ -22,6 +23,7 @@ import { createStructuredSelector } from 'reselect';
 import { Button } from 'react-toolbox/lib/button'
 import Input from 'react-toolbox/lib/input';
 import Dropdown from 'react-toolbox/lib/dropdown';
+import { List, ListItem, ListSubHeader, ListDivider, ListCheckbox } from 'react-toolbox/lib/list';
 
 import _ from 'lodash'
 
@@ -31,6 +33,10 @@ import {
   changeNewLiftAction,
   selectedLiftAction,
 } from './actions'
+
+import {
+  Workout
+} from './reducer'
 
 export class WorkoutList extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor() {
@@ -69,6 +75,7 @@ export class WorkoutList extends React.Component { // eslint-disable-line react/
       <div className={styles.workoutList}>
         <Dropdown
           auto
+          label="Select a lift"
           source={this.getLifts()}
           onChange={this.changeSelectedLift}
           value={this.getSelectedLiftID()}
@@ -96,12 +103,26 @@ export class WorkoutList extends React.Component { // eslint-disable-line react/
           label="Bookmark"
         />
 
-        <div
-          className={'ui button'}
+        View an existing workout or log a new one!
+
+        <Button
+          label="Log workout"
           onClick={() => this.props.addWorkout()}
+        />
+
+        <List
+          selectable
+          ripple
         >
-          Add Workout
-        </div>
+          <ListSubHeader caption="View a workout" />
+          {_(this.props.workouts).mapValues((workout) => {
+            return (
+              <ListItem
+                caption={workout.dispStartTS}
+              />
+            )
+          }).toArray().value()}
+        </List>
       </div>
     );
   }
@@ -113,6 +134,7 @@ const mapStateToProps = createStructuredSelector({
   newLift: selectNewLift(),
   lifts: selectLifts(),
   selectedLift: selectSelectedLift(),
+  workouts: selectWorkouts(),
 })
 
 
@@ -128,7 +150,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(addLiftAction(newLift))
     },
     addWorkout() {
-      dispatch(addWorkoutAction())
+      // Create new workout with a start date of now.
+      dispatch(addWorkoutAction(new Workout({
+        startTS: +new Date()
+      }).toJS()))
     },
     dispatch,
   };

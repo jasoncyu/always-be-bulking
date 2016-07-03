@@ -40,10 +40,16 @@ const selectSelectedLift = () => createSelector(
   }
 )
 
+const selectWorkouts = () => createSelector(
+  selectWorkoutList(),
+  (workoutList) => workoutList.workouts
+)
+
 export default selectWorkoutList;
 export {
   selectWorkoutListDomain,
   selectSelectedLift,
   selectNewLift,
   selectLifts,
+  selectWorkouts
 };

@@ -43,8 +43,12 @@ export const getCurrentUser = () => {
 export const currentUserWorkoutsRef = firebase.database().ref(`/users/${currentUserID}/workouts`)
 
 export const addLift = (liftObj) => {
-  console.log('liftObj: ', liftObj);
   return firebase.database().ref('/lifts').push(liftObj)
+}
+
+export const addWorkout = (workoutObj) => {
+  console.log('workoutObj: ', workoutObj);
+  return firebase.database().ref('/workouts').push(workoutObj)
 }
 
 export default firebase

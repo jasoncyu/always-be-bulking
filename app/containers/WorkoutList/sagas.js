@@ -7,6 +7,10 @@ import {
   ADD_LIFT_ACTION,
   ADD_LIFT_ACTION_SUCCESS,
   ADD_LIFT_ACTION_ERROR,
+  ADD_WORKOUT_ACTION,
+  ADD_WORKOUT_ACTION_SUCCESS,
+  ADD_WORKOUT_ACTION_ERROR,
+  FIREBASE_WORKOUT_CHANGED,
   FIREBASE_LIFT_CHANGED,
 } from './constants'
 
@@ -39,11 +43,22 @@ const firebaseEvent = () => {
   return eventChannel(emitter => {
     fb.getCurrentUser().then((user) => {
       const db = firebase.database()
+
+      // Push lifts db changes to client
       const liftsRef = db.ref('/lifts')
       liftsRef.on('value', (liftsSnapshot) => {
         emitter({
           type: FIREBASE_LIFT_CHANGED,
           payload: liftsSnapshot.val() || {},
+        })
+      })
+
+      // Push workouts db changes to client
+      const workoutsRef = db.ref('/workouts')
+      workoutsRef.on('value', (workoutsSnapshot) => {
+        emitter({
+          type: FIREBASE_WORKOUT_CHANGED,
+          payload: workoutsSnapshot.val() || {},
         })
       })
     })
@@ -82,10 +97,24 @@ export function* watchAddLift() {
     const lift = liftAction.lift
     try {
       const liftRes = yield fb.addLift(lift)
-      console.log('liftRes: ', liftRes);
       yield put({type: ADD_LIFT_ACTION_SUCCESS, liftRes})
     } catch (err) {
       yield put({type: ADD_LIFT_ACTION_ERROR, err})
+    }
+  }
+}
+
+export function* watchAddWorkout() {
+  while (true) {
+    const workoutAction = yield take(ADD_WORKOUT_ACTION)
+
+    const workout = workoutAction.workout
+    try {
+      const workoutRes = yield fb.addWorkout(workout)
+      console.log('workoutRes: ', workoutRes);
+      yield put({type: ADD_WORKOUT_ACTION_SUCCESS, workoutRes})
+    } catch (err) {
+      yield put({type: ADD_WORKOUT_ACTION_ERROR, err})
     }
   }
 }
@@ -96,5 +125,6 @@ export function* defaultSaga() {
     fork(watchAddLift),
     /* fork(watchCountdown),*/
     fork(watchFirebase),
+    fork(watchAddWorkout),
   ]
 }
