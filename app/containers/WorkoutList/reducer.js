@@ -36,7 +36,18 @@ function workoutListReducer(state = initialState, action) {
     case ADD_LIFT_ACTION_SUCCESS:
       return state
     case SELECTED_LIFT_ACTION: {
-      return state.set('lifts', state.get('lifts').merge(action.lift))
+      const selectedLift = action.lift
+      const selectedLiftID = Object.keys(action.lift)[0]
+
+      const newLifts = state.get('lifts').map((data, id) => {
+        if (id === selectedLiftID) {
+          return data.set('selected', true)
+        } else {
+          return data.set('selected', false)
+        }
+      })
+
+      return state.set('lifts', newLifts)
     }
     case DEFAULT_ACTION:
       return state;

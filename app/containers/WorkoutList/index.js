@@ -51,13 +51,15 @@ export class WorkoutList extends React.Component { // eslint-disable-line react/
     return lifts
   }
 
+  getSelectedLiftID() {
+    const selectedLift = this.props.selectedLift
+
+    return Object.keys(selectedLift)[0]
+  }
+
   changeSelectedLift(liftID) {
     const lift = _.pick(this.props.lifts, liftID)
-    const selectedLift = _(lift).mapValues(data => {
-      data.selected = true
-      return data
-    }).value()
-    this.props.selectLift(selectedLift)
+    this.props.selectLift(lift)
   }
 
   render() {
@@ -69,7 +71,7 @@ export class WorkoutList extends React.Component { // eslint-disable-line react/
           auto
           source={this.getLifts()}
           onChange={this.changeSelectedLift}
-          value={Object.keys(this.props.selectedLift)[0]}
+          value={this.getSelectedLiftID()}
         />
         <Input
           type="text"
@@ -80,7 +82,6 @@ export class WorkoutList extends React.Component { // eslint-disable-line react/
         <Button
           onClick={() => {
             const newLift = this.props.newLift
-            console.log('newLift: ', newLift);
             if (newLift.name === '') {
               return
             }
