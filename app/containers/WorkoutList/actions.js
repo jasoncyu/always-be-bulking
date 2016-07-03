@@ -9,6 +9,7 @@ import {
   ADD_WORKOUT_ACTION,
   ADD_LIFT_ACTION,
   CHANGE_NEW_LIFT_ACTION,
+  SELECTED_LIFT_ACTION,
 } from './constants';
 
 export function defaultAction() {
@@ -34,5 +35,12 @@ export const changeNewLiftAction = (currentLift) => {
   return {
     type: CHANGE_NEW_LIFT_ACTION,
     lift: currentLift,
+  }
+}
+
+export const selectedLiftAction = (lift) => {
+  return {
+    type: SELECTED_LIFT_ACTION,
+    lift,
   }
 }

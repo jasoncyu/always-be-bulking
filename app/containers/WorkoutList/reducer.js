@@ -4,6 +4,7 @@
  *
  */
 
+import _ from 'lodash'
 import * as I from 'immutable';
 import {
   ADD_LIFT_ACTION_SUCCESS,
@@ -11,6 +12,7 @@ import {
   DEFAULT_ACTION,
   FIREBASE_LIFT_CHANGED,
   CHANGE_NEW_LIFT_ACTION,
+  SELECTED_LIFT_ACTION,
 } from './constants';
 
 const initialState = I.fromJS({
@@ -33,6 +35,9 @@ function workoutListReducer(state = initialState, action) {
     }
     case ADD_LIFT_ACTION_SUCCESS:
       return state
+    case SELECTED_LIFT_ACTION: {
+      return state.set('lifts', state.get('lifts').merge(action.lift))
+    }
     case DEFAULT_ACTION:
       return state;
     default:

@@ -1,3 +1,5 @@
+import I from 'immutable'
+import _ from 'lodash'
 import { createSelector } from 'reselect';
 
 /**
@@ -19,7 +21,29 @@ const selectWorkoutList = () => createSelector(
   (substate) => substate.toJS()
 );
 
+const selectNewLift = () => createSelector(
+  selectWorkoutList(),
+  (workoutList) => workoutList.newLift
+)
+
+const selectLifts = () => createSelector(
+  selectWorkoutList(),
+  (workoutList) => workoutList.lifts
+)
+
+const selectSelectedLift = () => createSelector(
+  selectLifts(),
+  (lifts) => {
+    return _.pickBy(lifts, (data, liftID) => {
+      return data.selected
+    })
+  }
+)
+
 export default selectWorkoutList;
 export {
   selectWorkoutListDomain,
+  selectSelectedLift,
+  selectNewLift,
+  selectLifts,
 };

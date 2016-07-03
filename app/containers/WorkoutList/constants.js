@@ -13,3 +13,4 @@ export const ADD_LIFT_ACTION_ERROR = 'app/WorkoutList/ADD_LIFT_ACTION_ERROR'
 export const CHANGE_NEW_LIFT_ACTION = 'app/WorkoutList/CHANGE_NEW_LIFT_ACTION'
 
 export const FIREBASE_LIFT_CHANGED = 'app/WorkoutList/FIREBASE_LIFT_CHANGED'
+export const SELECTED_LIFT_ACTION = '/app/WorkoutList/SELECTED_LIFT_ACTION'
