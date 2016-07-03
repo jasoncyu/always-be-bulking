@@ -76,15 +76,17 @@ export function* watchCountdown() {
 }
 
 export function* watchAddLift() {
-  const liftAction = yield take(ADD_LIFT_ACTION)
+  while (true) {
+    const liftAction = yield take(ADD_LIFT_ACTION)
 
-  const lift = liftAction.lift
-  try {
-    const liftRes = yield fb.addLift(lift)
-    console.log('liftRes: ', liftRes);
-    yield put({type: ADD_LIFT_ACTION_SUCCESS, liftRes})
-  } catch (err) {
-    yield put({type: ADD_LIFT_ACTION_ERROR, err})
+    const lift = liftAction.lift
+    try {
+      const liftRes = yield fb.addLift(lift)
+      console.log('liftRes: ', liftRes);
+      yield put({type: ADD_LIFT_ACTION_SUCCESS, liftRes})
+    } catch (err) {
+      yield put({type: ADD_LIFT_ACTION_ERROR, err})
+    }
   }
 }
 
