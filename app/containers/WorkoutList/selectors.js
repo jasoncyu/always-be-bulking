@@ -18,7 +18,7 @@ const selectWorkoutListDomain = () => state => state.get('workoutList');
 
 const selectWorkoutList = () => createSelector(
   selectWorkoutListDomain(),
-  (substate) => substate.toJS()
+  (substate) => substate
 );
 
 const selectNewLift = () => createSelector(
