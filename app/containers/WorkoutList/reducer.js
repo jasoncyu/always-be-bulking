@@ -15,17 +15,7 @@ import {
   SELECTED_LIFT_ACTION,
 } from './constants';
 
-/* const Lift = I.Record({
- *   // Name of the lift
- *   name: ''
- * })
- * */
-/* export const Workout = I.Record({
- *   startTS: null,
- *   endTS: null,
- * })
- * */
-const initialState = {
+export const initialState = {
   // Workouts
   workouts: {},
   // List of lifts that we can select from
@@ -60,7 +50,7 @@ function workoutListReducer(state = initialState, action) {
     }
     case ADD_LIFT_ACTION_SUCCESS:
       // Clear newlift since it's been added successfully
-      return state.set('newLift', new Lift())
+      return state.set('newLift', {name: ''})
     case SELECTED_LIFT_ACTION: {
       const selectedLift = action.lift
       const selectedLiftID = Object.keys(action.lift)[0]
